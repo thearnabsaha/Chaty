@@ -2,8 +2,18 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { BsChat } from "react-icons/bs";
+import { useState } from "react";
+import { BsChat, BsCheck } from "react-icons/bs";
+import { MdOutlineContentCopy } from "react-icons/md";
 const CreateRoom = () => {
+    const [copied, setCopied] = useState<Boolean>(false)
+    const handleCopy=()=>{
+        navigator.clipboard.writeText("0354EC9")
+        setCopied(true)
+        setTimeout(() => {
+            setCopied(false)
+        }, 1000);
+    }
   return (
     <div className=' w-screen h-screen flex justify-center items-center font-mono'>
       <Card className='w-[600px]'>
@@ -33,6 +43,11 @@ const CreateRoom = () => {
                 </CardDescription>
                 <div className="flex justify-center">
                     <h1 className="text-center font-bold text-3xl mr-10">0354EC9</h1>
+                    
+                    <Button className=" rounded-sm cursor-pointer duration-500 h-10 w-10" onClick={handleCopy}>
+                    {copied?<BsCheck className="text-3xl"/> 
+                        :<MdOutlineContentCopy className="text-xl"/>}
+                    </Button>
                 </div>
             </div>
         </CardContent>
