@@ -10,6 +10,7 @@ const CreateRoom = () => {
     const [roomCreated, setRoomCreated] = useState<Boolean>(false)
     const [roomId, setRoomId] = useState("0354EC9")
     const [inputValue, setInputValue] = useState("")
+    const [joined, setJoined] = useState<Boolean>(false)
     const handleCopy=()=>{
         navigator.clipboard.writeText(roomId)
         setCopied(true)
