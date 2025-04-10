@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { inputValueState, joinedState, NameInputState, roomCreatedState, roomIdState } from "@/store/atoms"
 import { useRecoilState } from "recoil"
 import Code from "./Code"
+import { useNavigate } from "react-router-dom"
 
 const JoinRoom = () => {
   const [roomCreated, setRoomCreated] = useRecoilState(roomCreatedState)
@@ -11,6 +12,7 @@ const JoinRoom = () => {
   const [inputValue, setInputValue] = useRecoilState(inputValueState)
   const [nameinput, setNameinput] = useRecoilState(NameInputState)
   const [_joined, setJoined] = useRecoilState(joinedState)
+  const navigate=useNavigate()
   const generateRoomCode = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let code = '';
@@ -25,6 +27,7 @@ const JoinRoom = () => {
   }
   const handleJoin = () => {
     setJoined(true)
+    navigate("/room")
   }
   return (
     <div>
