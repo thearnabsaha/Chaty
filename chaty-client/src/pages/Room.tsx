@@ -16,7 +16,6 @@ const Room = () => {
     const [roomId, _setRoomId] = useRecoilState(roomIdState)
     const [inputValue, setInputValue] = useState("")
     const { messages, sendMessage } = useWebSocket("ws://localhost:3001")
-    const [showElements, setShowElements] = useState<number | null>(null)
 
     const handleKeydown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -25,7 +24,6 @@ const Room = () => {
             sendMessage(inputValue)
             setInputValue('');
         }
-
     }
     const handleSend = (e: React.FormEvent) => {
         e.preventDefault()
@@ -47,15 +45,15 @@ const Room = () => {
                         {
                             messages.map((e, index) => {
                                 return (
-                                    <div key={index} className={` flex mx-5 mb-5 ${e.from==="Server"?"justify-start":"justify-end"}`}>
-                                        <Badge className={`flex flex-col bg max-w-72  ${e.from==="You"?" bg-amber-300":""}`} onMouseEnter={()=>setShowElements(index)} onMouseLeave={()=>setShowElements(null)}>
+                                    <div key={index} className={`flex mx-5 mb-5 ${e.from==="Server"?"justify-start":"justify-end"}`}>
+                                        <Badge className={`flex flex-col bg max-w-72  ${e.from==="You"?" bg-amber-300":""}`}>
                                         {
                                             <div className="flex justify-between w-full min-w-20 mt-1">
                                                 <p className="text-[10px]">{e.from}</p>
                                                 <p className="text-[10px]">{extractTime(e.timestamps)}</p>
                                             </div>
                                         }
-                                            <p className="mb-1 h-auto break-words whitespace-normal">{e.msg}</p>
+                                            <p className="mb-1 h-auto break-all whitespace-normal">{e.msg}</p>
                                         </Badge>
                                     </div>
                                 )

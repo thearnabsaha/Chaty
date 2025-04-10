@@ -16,6 +16,8 @@ const useWebSocket = (url:string) => {
     socket.onmessage=(msg)=>{
       const time=new Date().toLocaleString()
       setMessages(prev=>[...prev,{msg:msg.data,timestamps:time,from:"Server"}])
+      console.log(msg);
+      
     }
     socket.onclose=()=>{
       console.log("socket closed")

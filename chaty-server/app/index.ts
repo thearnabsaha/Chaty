@@ -6,12 +6,12 @@ const wss = new WebSocketServer({ port: 3001 });
 wss.on('connection', (socket) => {
   allSockets.push(socket);
   console.log('Connection established');
-  // socket.send('Server is sending this message');
+  socket.send('Server is sending this message');
 
   socket.on('message', (message) => {
     allSockets.forEach((e) => {
       if(e.readyState===WebSocket.OPEN){
-        e.send(message.toString());
+        e.send('server : ' + message.toString());
       }
     });
   });
