@@ -22,13 +22,15 @@ const Room = () => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             console.log(inputValue)
+            sendMessage(inputValue)
             setInputValue('');
         }
 
     }
-    const hadnleSend = (e: React.FormEvent) => {
+    const handleSend = (e: React.FormEvent) => {
         e.preventDefault()
         console.log(inputValue)
+        sendMessage(inputValue)
         setInputValue('');
     }
     return (
@@ -45,16 +47,16 @@ const Room = () => {
                         {
                             messages.map((e, index) => {
                                 return (
-                                    <div key={index} className="mx-5 h-14 ">
-                                        <Badge className="flex flex-col bg" onMouseEnter={()=>setShowElements(index)} onMouseLeave={()=>setShowElements(null)}>
+                                    <div key={index} className={` flex mx-5 mb-5 ${e.from==="Server"?"justify-start":"justify-end"}`}>
+                                        <Badge className={`flex flex-col bg max-w-72  ${e.from==="You"?" bg-amber-300":""}`} onMouseEnter={()=>setShowElements(index)} onMouseLeave={()=>setShowElements(null)}>
                                         {
-                                            <div className="flex justify-between w-full mt-1">
+                                            <div className="flex justify-between w-full min-w-20 mt-1">
                                                 <p className="text-[10px]">{e.from}</p>
                                                 <p className="text-[10px]">{extractTime(e.timestamps)}</p>
                                             </div>
                                         }
-                                            <p className="mb-1">{e.msg}</p>
-                                            </Badge>
+                                            <p className="mb-1 h-auto break-words whitespace-normal">{e.msg}</p>
+                                        </Badge>
                                     </div>
                                 )
                             })
@@ -62,7 +64,7 @@ const Room = () => {
                     </div>
                     <div className="my-2 flex justify-between mt-5">
                         <Textarea className='rounded-sm mr-2 font-semibold focus:border-0 overflow-scroll h-[37px] resize-none ' placeholder='Type a message...' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeydown} />
-                        <Button className='rounded-sm cursor-pointer font-semibold' disabled={!inputValue} onClick={hadnleSend}>Send</Button>
+                        <Button className='rounded-sm cursor-pointer font-semibold' disabled={!inputValue} onClick={handleSend}>Send</Button>
                     </div>
                 </CardContent>
             </Card>
