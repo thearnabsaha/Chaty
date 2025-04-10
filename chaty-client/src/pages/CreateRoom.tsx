@@ -1,12 +1,8 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Card, CardContent, CardDescription} from "@/components/ui/card";
 import { BsChat} from "react-icons/bs";
-import { useRecoilState } from "recoil";
-import {joinedState} from "@/store/atoms";
 import JoinRoom from "./JoinRoom";
-import Room from "./Room";
 const CreateRoom = () => {
-    const [joined, _setJoined] = useRecoilState(joinedState)
   return (
     <div className=' w-screen h-screen flex justify-center items-center font-mono'>
       <Card className='w-[600px]'>
@@ -22,12 +18,7 @@ const CreateRoom = () => {
             <p className='text-shadow-accent-foreground font-bold'>Temporary room that expires after both users exit</p>
           </CardDescription>
         </CardContent>
-        {
-            !joined&&<JoinRoom/>
-        }
-        {
-            joined&&<Room/>
-        }
+        <JoinRoom/>
       </Card>
     </div>
   )

@@ -19,3 +19,7 @@ export const inputValueState = atom({
     key: 'inputValue',
     default: "",
   });
+export const NameInputState = atom({
+    key: 'Nameinput',
+    default: "",
+  });
