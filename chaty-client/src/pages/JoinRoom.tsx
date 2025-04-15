@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 const JoinRoom = () => {
   const [roomCreated, setRoomCreated] = useRecoilState(roomCreatedState)
-  const [_roomId, setRoomId] = useRecoilState(roomIdState)
+  const [roomId, setRoomId] = useRecoilState(roomIdState)
   const [inputValue, setInputValue] = useRecoilState(inputValueState)
   const [nameinput, setNameinput] = useRecoilState(NameInputState)
   const [_joined, setJoined] = useRecoilState(joinedState)
@@ -27,7 +27,10 @@ const JoinRoom = () => {
   }
   const handleJoin = () => {
     setJoined(true)
-    navigate("/room")
+    roomId?navigate(`/room/${roomId}`):navigate(`/room/${inputValue}`)
+    setNameinput("")
+    setInputValue("")
+    setRoomCreated(false)
   }
   return (
     <div>
