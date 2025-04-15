@@ -10,13 +10,12 @@ const extractTime = (dateString: string): string => {
     const date = new Date(dateString);
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
+    return `${hours}.${minutes}`;
 };
 const Room = () => {
     const [roomId, _setRoomId] = useRecoilState(roomIdState)
     const [inputValue, setInputValue] = useState("")
     const { messages, sendMessage } = useWebSocket("ws://localhost:3001")
-
     const handleKeydown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -38,19 +37,21 @@ const Room = () => {
                     <div className="bg-accent rounded-sm py-2 px-4">
                         <CardDescription className="flex justify-between">
                             <p className="text-shadow-accent-foreground ">Room Code : <span className=" font-semibold">{roomId}</span></p>
-                            <p>Users : 3/5</p>
                         </CardDescription>
                     </div>
                     <div className=" w-full h-[500px] border rounded-sm mt-4 overflow-auto pt-5">
                         {
                             messages.map((e, index) => {
+                                console.log(extractTime(e.timestamps))
+                                console.log(e.timestamps)
                                 return (
                                     <div key={index} className={`flex mx-5 mb-5 ${e.from==="Server"?"justify-start":"justify-end"}`}>
                                         <Badge className={`flex flex-col bg max-w-72  ${e.from==="You"?" bg-amber-300":""}`}>
                                         {
                                             <div className="flex justify-between w-full min-w-20 mt-1">
                                                 <p className="text-[10px]">{e.from}</p>
-                                                <p className="text-[10px]">{extractTime(e.timestamps)}</p>
+                                                {/* <p className="text-[10px]">{extractTime(e.timestamps)}</p> */}
+                                                <p className="text-[10px]">{e.timestamps}</p>
                                             </div>
                                         }
                                             <p className="mb-1 h-auto break-all whitespace-normal">{e.msg}</p>
